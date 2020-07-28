@@ -1,0 +1,13 @@
+language: python
+python:
+- "3.7"
+before_install:
+- mv travis_secrets.yaml secrets.yaml
+- sudo apt-get install -y libudev-dev
+install:
+- pip3 install homeassistant
+- pip3 install hacs-frontend
+- find . -name "manifest.json" | xargs -I {} jq -r ".requirements[]" {} | xargs -I {} pip3 install {}
+script:
+- hass -c . --script check_config
+

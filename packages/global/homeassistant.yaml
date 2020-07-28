@@ -1,0 +1,14 @@
+homeassistant:
+  auth_providers:
+  - type: homeassistant
+  - trusted_networks:
+    - !secret trusted_network
+    type: trusted_networks
+  customize_domain: {}
+  customize_glob: {}
+  elevation: !secret home_elevation
+  latitude: !secret home_latitude
+  longitude: !secret home_longitude
+  name: Home
+  time_zone: !secret home_timezone
+  unit_system: metric

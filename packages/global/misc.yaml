@@ -1,0 +1,49 @@
+browser_mod: {}
+
+config: {}
+
+conversation: {}
+
+automation: {}
+history: {}
+logbook: {}
+# map: {}
+mobile_app: {}
+# person: {}
+# scene: {}
+script: {}
+sun: {}
+system_health: {}
+# zone: {}
+input_boolean: {}
+input_datetime: {}
+input_text: {}
+input_number: {}
+input_select: {}
+# default_config: {}
+
+# discovery: {}
+
+ffmpeg: {}
+
+stream: {}
+
+sensor:
+- display_options:
+  - time
+  - date
+  platform: time_date
+
+tts:
+- platform: google_translate
+
+# zeroconf: {}
+
+http:
+  cors_allowed_origins:
+    - https://cast.home-assistant.io
+  # use_x_forwarded_for: true
+
+updater:
+  reporting: false
+  include_used_components: true
