@@ -12,3 +12,5 @@ homeassistant:
   name: Home
   time_zone: !secret home_timezone
   unit_system: metric
+  external_url: !secret external_url
+  internal_url: !secret internal_url
