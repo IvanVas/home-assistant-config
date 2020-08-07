@@ -3,6 +3,21 @@ automation: !include automations.yaml
 group: !include groups.yaml
 
 homeassistant:
+  auth_providers:
+  - type: homeassistant
+  - trusted_networks:
+    - !secret trusted_network
+    type: trusted_networks
+  customize_domain: {}
+  customize_glob: {}
+  elevation: !secret home_elevation
+  latitude: !secret home_latitude
+  longitude: !secret home_longitude
+  name: Home
+  time_zone: !secret home_timezone
+  unit_system: metric
+  external_url: !secret external_url
+  internal_url: !secret internal_url
   customize: !include customize.yaml
   packages: !include_dir_named packages
 
