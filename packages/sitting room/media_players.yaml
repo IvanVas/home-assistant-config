@@ -1,0 +1,11 @@
+media_player:
+  - platform: androidtv
+    name: Sitting Room NVIDIA Shield
+    host: shield
+  - platform: kodi
+    host: shield
+
+cast:
+  media_player:
+    - host: shield
+
