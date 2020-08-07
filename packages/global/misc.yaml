@@ -20,9 +20,14 @@ input_datetime: {}
 input_text: {}
 input_number: {}
 input_select: {}
+ssdp: {}
+
 # default_config: {}
 
-# discovery: {}
+discovery:
+  ignore:
+    - philips_hue
+    - belkin_wemo
 
 ffmpeg: {}
 
