@@ -19,7 +19,8 @@ alexa:
     locale: en-US
     endpoint: https://api.amazonalexa.com/v3/events
     filter:
-      include_entities: []
+      include_entities:
+        media_player.kodi
       include_entity_globs: []
       include_domains:
         - cover

@@ -3,11 +3,6 @@ automation: !include automations.yaml
 group: !include groups.yaml
 
 homeassistant:
-  auth_providers:
-  - type: homeassistant
-  - trusted_networks:
-    - !secret trusted_network
-    type: trusted_networks
   customize_domain: {}
   customize_glob: {}
   elevation: !secret home_elevation

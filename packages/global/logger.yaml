@@ -1,2 +1,4 @@
 logger:
-  default: critical
+  default: info
+  logs:
+    homeassistant.components.alexa: debug

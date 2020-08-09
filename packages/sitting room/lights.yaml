@@ -1,0 +1,67 @@
+light:
+  - platform: mqtt
+    name: "Sitting Room Ceiling"
+    command_topic: "sitting_room_ceiling/cmnd/POWER"
+    state_topic: "sitting_room_ceiling/tele/STATE"
+    state_value_template: "{{value_json.POWER}}"
+    availability_topic: "sitting_room_ceiling/tele/LWT"
+    brightness_command_topic: "sitting_room_ceiling/cmnd/Dimmer"
+    brightness_state_topic: "sitting_room_ceiling/tele/STATE"
+    brightness_scale: 100
+    on_command_type: "last"
+    brightness_value_template: "{{value_json.Dimmer}}"
+    rgb_command_topic: "sitting_room_ceiling/cmnd/Color2"
+    rgb_state_topic: "sitting_room_ceiling/tele/STATE"
+    rgb_value_template: "{{value_json.Color.split(',')[0:3]|join(',')}}"
+    effect_command_topic: "sitting_room_ceiling/cmnd/Scheme"
+    effect_state_topic: "sitting_room_ceiling/tele/STATE"
+    effect_value_template: "{{value_json.Scheme}}"
+    effect_list:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+    white_value_command_topic: "sitting_room_ceiling/cmnd/White"
+    white_value_state_topic: "sitting_room_ceiling/tele/STATE"
+    white_value_scale: 100
+    white_value_template: "{{value_json.Channel[3]}}"
+    payload_on: "ON"
+    payload_off: "OFF"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    qos: 1
+    retain: true
+  - platform: mqtt
+    name: "Sitting Room Lamp"
+    command_topic: "sitting_room_lamp/cmnd/POWER"
+    state_topic: "sitting_room_lamp/tele/STATE"
+    state_value_template: "{{value_json.POWER}}"
+    availability_topic: "sitting_room_lamp/tele/LWT"
+    brightness_command_topic: "sitting_room_lamp/cmnd/Dimmer"
+    brightness_state_topic: "sitting_room_lamp/tele/STATE"
+    brightness_scale: 100
+    on_command_type: "last"
+    brightness_value_template: "{{value_json.Dimmer}}"
+    rgb_command_topic: "sitting_room_lamp/cmnd/Color2"
+    rgb_state_topic: "sitting_room_lamp/tele/STATE"
+    rgb_value_template: "{{value_json.Color.split(',')[0:3]|join(',')}}"
+    effect_command_topic: "sitting_room_lamp/cmnd/Scheme"
+    effect_state_topic: "sitting_room_lamp/tele/STATE"
+    effect_value_template: "{{value_json.Scheme}}"
+    effect_list:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+    white_value_command_topic: "sitting_room_lamp/cmnd/White"
+    white_value_state_topic: "sitting_room_lamp/tele/STATE"
+    white_value_scale: 100
+    white_value_template: "{{value_json.Channel[3]}}"
+    payload_on: "ON"
+    payload_off: "OFF"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    qos: 1
+    retain: true

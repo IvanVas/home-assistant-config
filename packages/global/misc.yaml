@@ -1,5 +1,3 @@
-browser_mod: {}
-
 config: {}
 
 conversation: {}
@@ -20,14 +18,13 @@ input_datetime: {}
 input_text: {}
 input_number: {}
 input_select: {}
-ssdp: {}
+# ssdp: {}
 
 # default_config: {}
 
-discovery:
-  ignore:
-    - philips_hue
-    - belkin_wemo
+# discovery:
+#   enable:
+  
 
 ffmpeg: {}
 
@@ -38,16 +35,23 @@ sensor:
   - time
   - date
   platform: time_date
+- platform: authenticated
 
 tts:
 - platform: google_translate
 
-# zeroconf: {}
+zeroconf:
+
 
 http:
+  base_url: !secret external_url
   cors_allowed_origins:
     - https://cast.home-assistant.io
-  # use_x_forwarded_for: true
+  use_x_forwarded_for: true
+  trusted_proxies:
+   - 10.0.0.0/8
+   - 172.16.0.0/12
+   - 192.168.0.0/16
 
 updater:
   reporting: false
