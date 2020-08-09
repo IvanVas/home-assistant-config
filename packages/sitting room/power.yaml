@@ -45,3 +45,23 @@ switch:
     payload_off: "OFF"
     qos: 1
     retain: true
+  - platform: template
+    switches:
+      sitting_room_media:
+        friendly_name: Sitting Room Media
+        turn_on:
+          service: switch.turn_on
+          data:
+            entity_id: 
+                - switch.sitting_room_shield
+                - switch.sitting_room_speaker
+                - switch.sitting_room_screen
+                - switch.sitting_room_usb
+        turn_off:
+          service: switch.turn_off
+          data:
+            entity_id: 
+                - switch.sitting_room_shield
+                - switch.sitting_room_speaker
+                - switch.sitting_room_screen
+                - switch.sitting_room_usb

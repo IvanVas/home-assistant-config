@@ -11,9 +11,34 @@ media_player:
      - media_player.sitting_room_kodi
      - media_player.sitting_room_shield
      - media_player.sitting_room_cast
+    commands:
+      turn_on:
+        service: switch.turn_on
+        data:
+          entity_id: switch.sitting_room_media
+      turn_off:
+        service: switch.turn_off
+        data:
+          entity_id: switch.sitting_room_media
+      volume_up:
+        service: remote.send_command
+        data:
+          entity_id: remote.sitting_room_ir
+          command: volume up
+      volume_down:
+        service: remote.send_command
+        data:
+          entity_id: remote.sitting_room_ir
+          command: volume down
+      volume_mute:
+        service: remote.send_command
+        data:
+          entity_id: remote.sitting_room_ir
+          command: mute
 
 remote:
   - platform: broadlink
     type: rm_mini
+    name: Sitting room ir
     host: !secret broadlink_hostname
     mac: !secret broadlink_mac
