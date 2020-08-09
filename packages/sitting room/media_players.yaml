@@ -1,11 +1,13 @@
 media_player:
   - platform: androidtv
-    name: Sitting Room NVIDIA Shield
-    host: shield
+    name: Sitting Room Shield
+    host: !secret sitting_room_shield_hostname
   - platform: kodi
-    host: shield
-
-cast:
-  media_player:
-    - host: shield
-
+    name: Sitting Room Kodi
+    host: !secret sitting_room_shield_hostname
+  - platform: universal
+    name: Sitting Room TV
+    children:
+     - media_player.sitting_room_kodi
+     - media_player.sitting_room_shield
+     - media_player.sitting_room_cast
