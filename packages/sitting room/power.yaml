@@ -1,0 +1,47 @@
+switch:
+  - platform: mqtt
+    name: Sitting room shield
+    command_topic: "sitting_room_power_strip/cmnd/POWER1"
+    availability_topic: "sitting_room_power_strip/tele/LWT"
+    state_topic: "sitting_room_power_strip/tele/STATE"
+    value_template: "{{value_json.POWER1}}"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    payload_on: "ON"
+    payload_off: "OFF"
+  - platform: mqtt
+    name: Sitting room speaker
+    command_topic: "sitting_room_power_strip/cmnd/POWER2"
+    availability_topic: "sitting_room_power_strip/tele/LWT"
+    state_topic: "sitting_room_power_strip/tele/STATE"
+    value_template: "{{value_json.POWER2}}"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    payload_on: "ON"
+    payload_off: "OFF"
+    qos: 1
+    retain: true
+  - platform: mqtt
+    name: Sitting room screen
+    command_topic: "sitting_room_power_strip/cmnd/POWER3"
+    availability_topic: "sitting_room_power_strip/tele/LWT"
+    state_topic: "sitting_room_power_strip/tele/STATE"
+    value_template: "{{value_json.POWER3}}"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    payload_on: "ON"
+    payload_off: "OFF"
+    qos: 1
+    retain: true
+  - platform: mqtt
+    name: Sitting room usb
+    command_topic: "sitting_room_power_strip/cmnd/POWER4"
+    availability_topic: "sitting_room_power_strip/tele/LWT"
+    state_topic: "sitting_room_power_strip/tele/STATE"
+    value_template: "{{value_json.POWER4}}"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    payload_on: "ON"
+    payload_off: "OFF"
+    qos: 1
+    retain: true

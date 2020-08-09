@@ -11,3 +11,9 @@ media_player:
      - media_player.sitting_room_kodi
      - media_player.sitting_room_shield
      - media_player.sitting_room_cast
+
+remote:
+  - platform: broadlink
+    type: rm_mini
+    host: !secret broadlink_hostname
+    mac: !secret broadlink_mac
