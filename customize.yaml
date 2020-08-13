@@ -1,0 +1,8 @@
+media_player.sitting_room_kodi:
+  hidden: true
+media_player.sitting_room_shield:
+  hidden: true
+media_player.sitting_room_cast:
+  hidden: true
+media_player.sitting_room_kodi_wrapper:
+  hidden: true

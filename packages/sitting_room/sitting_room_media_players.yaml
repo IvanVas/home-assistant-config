@@ -1,0 +1,78 @@
+media_player:
+  - platform: androidtv
+    name: Sitting Room Shield
+    host: !secret sitting_room_shield_hostname
+  - platform: kodi
+    name: Sitting Room Kodi
+    host: !secret sitting_room_shield_hostname
+    turn_off_action:
+      service: kodi.call_method
+      data:
+        entity_id: media_player.sitting_room_kodi
+        method: Application.Quit
+  - platform: universal
+    name: Sitting Room Kodi Wrapper
+    children:
+      - media_player.sitting_room_kodi
+    state_template: >
+      {% if ("app_id" in states.media_player.sitting_room_shield.attributes) and (states.media_player.sitting_room_shield.attributes.app_id == 'org.xbmc.kodi') %}
+      {{ states("media_player.sitting_room_kodi") }}
+      {% else %}
+      off
+      {% endif %}
+    commands:
+      turn_on:
+        service: media_player.select_source
+        data:
+          entity_id: media_player.sitting_room_shield
+          source: Kodi
+      turn_off:
+        service: kodi.call_method
+        data:
+          entity_id: media_player.sitting_room_kodi
+          method: Application.Quit
+  - platform: universal
+    name: Sitting Room TV
+    children:
+     - media_player.sitting_room_kodi_wrapper
+     - media_player.sitting_room_shield
+     - media_player.sitting_room_cast
+    commands:
+      turn_on:
+        service: switch.turn_on
+        data:
+          entity_id: switch.sitting_room_media
+      turn_off:
+        service: switch.turn_off
+        data:
+          entity_id: switch.sitting_room_media
+      volume_up:
+        service: remote.send_command
+        data:
+          entity_id: remote.sitting_room_ir
+          command: volume up
+          device: television
+          hold_secs: 5
+      volume_down:
+        service: remote.send_command
+        data:
+          entity_id: remote.sitting_room_ir
+          command: volume down
+          device: television
+          hold_secs: 5
+      volume_mute:
+        service: remote.send_command
+        data:
+          entity_id: remote.sitting_room_ir
+          command: mute
+          device: television
+    attributes:
+      source: media_player.sitting_room_shield|source
+      source_list: media_player.sitting_room_shield|source_list
+
+remote:
+  - platform: broadlink
+    type: rm_mini
+    name: Sitting room ir
+    host: !secret broadlink_hostname
+    mac: !secret broadlink_mac

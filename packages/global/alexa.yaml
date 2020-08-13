@@ -20,7 +20,7 @@ alexa:
     endpoint: https://api.amazonalexa.com/v3/events
     filter:
       include_entities:
-        media_player.kodi
+        media_player.sitting_room_tv
       include_entity_globs: []
       include_domains:
         - cover
