@@ -1,20 +1,20 @@
 light:
   - platform: mqtt
-    name: "Sitting Room Ceiling"
-    command_topic: "sitting_room_ceiling/cmnd/POWER"
-    state_topic: "sitting_room_ceiling/tele/STATE"
+    name: "Sitting Room Ceiling Light"
+    command_topic: "sitting_room_ceiling_light/cmnd/POWER"
+    state_topic: "sitting_room_ceiling_light/tele/STATE"
     state_value_template: "{{value_json.POWER}}"
-    availability_topic: "sitting_room_ceiling/tele/LWT"
-    brightness_command_topic: "sitting_room_ceiling/cmnd/Dimmer"
-    brightness_state_topic: "sitting_room_ceiling/tele/STATE"
+    availability_topic: "sitting_room_ceiling_light/tele/LWT"
+    brightness_command_topic: "sitting_room_ceiling_light/cmnd/Dimmer"
+    brightness_state_topic: "sitting_room_ceiling_light/tele/STATE"
     brightness_scale: 100
     on_command_type: "last"
     brightness_value_template: "{{value_json.Dimmer}}"
-    rgb_command_topic: "sitting_room_ceiling/cmnd/Color2"
-    rgb_state_topic: "sitting_room_ceiling/tele/STATE"
+    rgb_command_topic: "sitting_room_ceiling_light/cmnd/Color2"
+    rgb_state_topic: "sitting_room_ceiling_light/tele/STATE"
     rgb_value_template: "{{value_json.Color.split(',')[0:3]|join(',')}}"
-    effect_command_topic: "sitting_room_ceiling/cmnd/Scheme"
-    effect_state_topic: "sitting_room_ceiling/tele/STATE"
+    effect_command_topic: "sitting_room_ceiling_light/cmnd/Scheme"
+    effect_state_topic: "sitting_room_ceiling_light/tele/STATE"
     effect_value_template: "{{value_json.Scheme}}"
     effect_list:
     - 0
@@ -22,8 +22,8 @@ light:
     - 2
     - 3
     - 4
-    white_value_command_topic: "sitting_room_ceiling/cmnd/White"
-    white_value_state_topic: "sitting_room_ceiling/tele/STATE"
+    white_value_command_topic: "sitting_room_ceiling_light/cmnd/White"
+    white_value_state_topic: "sitting_room_ceiling_light/tele/STATE"
     white_value_scale: 100
     white_value_template: "{{value_json.Channel[3]}}"
     payload_on: "ON"

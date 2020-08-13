@@ -12,7 +12,7 @@ switch:
   - platform: mqtt
     name: Ciara's Power Strip B
     command_topic: "ciaras_power_strip/cmnd/POWER2"
-    availability_topic: "ciara_power_strip/tele/LWT"
+    availability_topic: "ciaras_power_strip/tele/LWT"
     state_topic: "ciaras_power_strip/tele/STATE"
     value_template: "{{value_json.POWER2}}"
     payload_available: "Online"

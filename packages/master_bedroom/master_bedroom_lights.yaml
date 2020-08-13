@@ -43,10 +43,10 @@ light:
     brightness_scale: 100
     on_command_type: "last"
     brightness_value_template: "{{value_json.Dimmer}}"
-    rgb_command_topic: "ian_lamp/cmnd/Color2"
+    rgb_command_topic: "ians_lamp/cmnd/Color2"
     rgb_state_topic: "ians_lamp/tele/STATE"
     rgb_value_template: "{{value_json.Color.split(',')[0:3]|join(',')}}"
-    effect_command_topic: "ian_lamp/cmnd/Scheme"
+    effect_command_topic: "ians_lamp/cmnd/Scheme"
     effect_state_topic: "ians_lamp/tele/STATE"
     effect_value_template: "{{value_json.Scheme}}"
     effect_list:
@@ -55,7 +55,7 @@ light:
     - 2
     - 3
     - 4
-    white_value_command_topic: "ian_lamp/cmnd/White"
+    white_value_command_topic: "ians_lamp/cmnd/White"
     white_value_state_topic: "ians_lamp/tele/STATE"
     white_value_scale: 100
     white_value_template: "{{value_json.Channel[3]}}"
