@@ -20,7 +20,7 @@ switch:
     payload_on: "ON"
     payload_off: "OFF"
     qos: 1
-    retain: true
+    retain: false
   - platform: mqtt
     name: Office Webcam Light
     command_topic: "office_power_strip/cmnd/POWER3"
@@ -32,7 +32,7 @@ switch:
     payload_on: "ON"
     payload_off: "OFF"
     qos: 1
-    retain: true
+    retain: false
   - platform: mqtt
     name: Office USB
     command_topic: "office_power_strip/cmnd/POWER4"
@@ -44,7 +44,7 @@ switch:
     payload_on: "ON"
     payload_off: "OFF"
     qos: 1
-    retain: true
+    retain: false
   - platform: template
     switches:
       sitting_room_media:

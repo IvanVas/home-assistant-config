@@ -31,7 +31,7 @@ light:
     payload_available: "Online"
     payload_not_available: "Offline"
     qos: 1
-    retain: true
+    retain: false
   - platform: mqtt
     name: Ian's Lamp
     command_topic: "ians_lamp/cmnd/POWER"
@@ -64,7 +64,7 @@ light:
     payload_available: "Online"
     payload_not_available: "Offline"
     qos: 1
-    retain: true
+    retain: false
   - platform: mqtt
     name: Ciara's Lamp
     command_topic: "ciaras_lamp/cmnd/POWER"
@@ -97,4 +97,4 @@ light:
     payload_available: "Online"
     payload_not_available: "Offline"
     qos: 1
-    retain: true
+    retain: false
