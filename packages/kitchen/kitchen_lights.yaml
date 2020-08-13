@@ -1,4 +1,8 @@
 light:
+  - platform: group
+    name: Kitchen light
+    entities:
+        - light.kitchen_lamp
   - platform: mqtt
     name: Kitchen Lamp
     command_topic: "kitchen_lamp/cmnd/POWER"

@@ -1,4 +1,8 @@
 light:
+  - platform: group
+    name: Main Bathroom Light
+    entities:
+        - light.main_bathroom_ceiling_light
   - platform: mqtt
     name: Main Bathroom Ceiling Light
     availability_topic: main_bathroom_ceiling_light/tele/LWT

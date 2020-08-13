@@ -1,4 +1,8 @@
 light:
+  - platform: group
+    name: Landing Light
+    entities:
+        - light.landing_ceiling_light
   - platform: mqtt
     name: Landing Ceiling Light
     availability_topic: landing_ceiling_light/tele/LWT

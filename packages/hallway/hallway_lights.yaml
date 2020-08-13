@@ -1,4 +1,8 @@
 light:
+  - platform: group
+    name: Hallway light
+    entities:
+        - light.hallway_lamp
   - platform: mqtt
     name: Hallway Lamp
     command_topic: "hallway_lamp/cmnd/POWER"

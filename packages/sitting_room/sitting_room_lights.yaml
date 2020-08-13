@@ -1,4 +1,8 @@
 light:
+  - platform: group
+    name: Sitting Room light
+    entities:
+        - light.sitting_room_ceiling_light
   - platform: mqtt
     name: "Sitting Room Ceiling Light"
     command_topic: "sitting_room_ceiling_light/cmnd/POWER"

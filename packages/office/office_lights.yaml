@@ -1,4 +1,8 @@
 light:
+  - platform: group
+    name: Office Light
+    entities:
+        light.office_ceiling_light
   - platform: mqtt
     name: "Office Ceiling Light"
     availability_topic: office_ceiling_light/tele/LWT

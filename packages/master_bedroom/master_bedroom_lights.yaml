@@ -1,4 +1,8 @@
 light:
+  - platform: group
+    name: Master Bedroom Light
+    entities:
+        light.master_bedroom_ceiling_light
   - platform: mqtt
     name: Master Bedroom Ceiling Light
     availability_topic: master_bedroom_ceiling_light/tele/LWT
