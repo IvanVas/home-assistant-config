@@ -19,7 +19,6 @@ light:
     - '4'
     effect_state_topic: main_bathroom_ceiling_light/tele/STATE
     effect_value_template: '{{value_json.Scheme}}'
-    name: Master Bedroom Bathroom Ceiling Light Master Bedroom Bathroom Ceiling Light
     on_command_type: last
     payload_available: Online
     payload_not_available: Offline
