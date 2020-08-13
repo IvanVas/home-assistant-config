@@ -30,7 +30,7 @@ light:
     state_topic: master_bedroom_ceiling_light/tele/STATE
     value_template: '{{value_json.POWER}}'
   - platform: mqtt
-    name: Master Bathroom Ceiling Light
+    name: Master Bedroom Bathroom Ceiling Light
     availability_topic: master_bathroom_ceiling_light/tele/LWT
     brightness_command_topic: master_bathroom_ceiling_light/cmnd/Dimmer
     brightness_scale: 100
