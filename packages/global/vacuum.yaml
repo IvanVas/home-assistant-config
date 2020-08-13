@@ -1,0 +1,6 @@
+sensor:
+  - platform: mqtt
+    state_topic: "valetudo/rockrobo/state"
+    json_attributes_topic: "valetudo/rockrobo/map_data"
+    name: xiaomi_map
+    value_template: 'OK'
