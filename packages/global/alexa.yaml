@@ -24,6 +24,10 @@ alexa:
       include_entity_globs: []
       include_domains:
         - cover
+        - light
+        - switch
+        - script
+        - group
       exclude_entities: []
     entity_config: {}
 

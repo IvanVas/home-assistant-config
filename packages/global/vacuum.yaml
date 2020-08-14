@@ -4,3 +4,15 @@ sensor:
     json_attributes_topic: "valetudo/rockrobo/map_data"
     name: xiaomi_map
     value_template: 'OK'
+
+script:
+    kitchen_vacuum:
+        alias: Kitchen Vacuum
+        sequence:
+          - service: vacuum.send_command
+            data:
+                command: segmented_cleanup
+                entity_id: vacuum.rockrobo
+                params: 
+                  'segment_ids': [1]
+                  repeats: 1

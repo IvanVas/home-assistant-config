@@ -2,7 +2,7 @@ light:
   - platform: group
     name: Outside light
     entities:
-        - switch.front_door_light
+        - light.front_door_light
   - platform: mqtt
     name: Front door light
     availability_topic: front_door_light/tele/LWT
