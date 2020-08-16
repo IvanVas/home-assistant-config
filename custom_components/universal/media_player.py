@@ -116,8 +116,8 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
         config.get(CONF_COMMANDS),
         config.get(CONF_OVERRIDES),
         config.get(CONF_ATTRS),
-        config.get(CONF_STATE_TEMPLATE),
         config.get(CONF_PICTURE_ENTITY_ID),
+        config.get(CONF_STATE_TEMPLATE),
     )
 
     async_add_entities([player])
@@ -126,7 +126,7 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
 class UniversalMediaPlayer(MediaPlayerEntity):
     """Representation of an universal media player."""
 
-    def __init__(self, hass, name, children, commands, overrides, attributes, state_template=None, picture_entity_id):
+    def __init__(self, hass, name, children, commands, overrides, attributes, picture_entity_id, state_template=None):
         """Initialize the Universal media device."""
         self.hass = hass
         self._name = name
@@ -139,11 +139,11 @@ class UniversalMediaPlayer(MediaPlayerEntity):
             if len(attr) == 1:
                 attr.append(None)
             self._attrs[key] = attr
+        self._picture_entity_id = picture_entity_id
         self._child_state = None
         self._state_template = state_template
         if state_template is not None:
             self._state_template.hass = hass
-        self._picture_entity_id = picture_entity_id
 
     async def async_added_to_hass(self):
         """Subscribe to children and template state changes."""
