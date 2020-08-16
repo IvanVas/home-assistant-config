@@ -96,11 +96,11 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
         vol.Required(CONF_NAME): cv.string,
         vol.Optional(CONF_CHILDREN, default=[]): cv.entity_ids,
         vol.Optional(CONF_COMMANDS, default={}): CMD_SCHEMA,
-        vol.Optional(CONF_OVERRIDES, default=[]): cv.ensure_list,
+        vol.Optional(CONF_OVERRIDES, default=[]): cv.ensure_list(cv.SERVICE_SCHEMA),
         vol.Optional(CONF_ATTRS, default={}): vol.Or(
             cv.ensure_list(ATTRS_SCHEMA), ATTRS_SCHEMA
         ),
-        vol.Optional(CONF_PICTURE_ENTITY_ID): cv.string,
+        vol.Optional(CONF_PICTURE_ENTITY_ID, default=""): cv.string,
         vol.Optional(CONF_STATE_TEMPLATE): cv.template,
     },
     extra=vol.REMOVE_EXTRA,
