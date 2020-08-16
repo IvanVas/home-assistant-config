@@ -290,9 +290,10 @@ class UniversalMediaPlayer(MediaPlayerEntity):
     def media_image_url(self):
         """Image url of current playing media."""
         if self._picture_entity_id and self.hass.states.get(self._picture_entity_id):
-            return self.hass.states.get(self._picture_entity_id).attributes.get(ATTR_ENTITY_PICTURE)
-        else:
-            return self._child_attr(ATTR_ENTITY_PICTURE)
+            state = self.hass.states.get(self._picture_entity_id)
+            if state:
+                return state.attributes.get(ATTR_ENTITY_PICTURE)
+        return self._child_attr(ATTR_ENTITY_PICTURE)
 
     @property
     def entity_picture(self):
