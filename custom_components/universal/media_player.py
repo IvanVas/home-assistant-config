@@ -405,13 +405,13 @@ class UniversalMediaPlayer(MediaPlayerEntity):
             flags |= SUPPORT_VOLUME_STEP
 
         if SERVICE_VOLUME_SET in self._overrides:
-            flags |= ~SERVICE_VOLUME_SET
+            flags |= ~SUPPORT_VOLUME_SET
 
         if SERVICE_VOLUME_SET in self._cmds:
             flags |= SUPPORT_VOLUME_SET
 
         if SERVICE_VOLUME_MUTE in self._overrides:
-            flags |= ~SERVICE_VOLUME_MUTE
+            flags |= ~SUPPORT_VOLUME_MUTE
 
         if SERVICE_VOLUME_MUTE in self._cmds and ATTR_MEDIA_VOLUME_MUTED in self._attrs:
             flags |= SUPPORT_VOLUME_MUTE
