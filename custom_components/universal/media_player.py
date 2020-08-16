@@ -80,8 +80,11 @@ ATTR_DATA = "data"
 CONF_ATTRS = "attributes"
 CONF_CHILDREN = "children"
 CONF_COMMANDS = "commands"
+CONF_OVERRIDES = "overrides"
 CONF_SERVICE = "service"
 CONF_SERVICE_DATA = "service_data"
+
+CONF_PICTURE_ENTITY_ID = "picture_entity_id"
 
 OFF_STATES = [STATE_IDLE, STATE_OFF, STATE_UNAVAILABLE]
 
@@ -93,9 +96,11 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
         vol.Required(CONF_NAME): cv.string,
         vol.Optional(CONF_CHILDREN, default=[]): cv.entity_ids,
         vol.Optional(CONF_COMMANDS, default={}): CMD_SCHEMA,
+        vol.Optional(CONF_OVERRIDES, default=[]): cv.ensure_list,
         vol.Optional(CONF_ATTRS, default={}): vol.Or(
             cv.ensure_list(ATTRS_SCHEMA), ATTRS_SCHEMA
         ),
+        vol.Optional(CONF_PICTURE_ENTITY_ID, default=None): cv.entity_id,
         vol.Optional(CONF_STATE_TEMPLATE): cv.template,
     },
     extra=vol.REMOVE_EXTRA,
@@ -109,8 +114,10 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
         config.get(CONF_NAME),
         config.get(CONF_CHILDREN),
         config.get(CONF_COMMANDS),
+        config.get(CONF_OVERRIDES)
         config.get(CONF_ATTRS),
         config.get(CONF_STATE_TEMPLATE),
+        config.get(CONF_PICTURE_ENTITY_ID),
     )
 
     async_add_entities([player])
@@ -119,12 +126,13 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
 class UniversalMediaPlayer(MediaPlayerEntity):
     """Representation of an universal media player."""
 
-    def __init__(self, hass, name, children, commands, attributes, state_template=None):
+    def __init__(self, hass, name, children, commands, overrides, attributes, state_template=None, picture_entity_id):
         """Initialize the Universal media device."""
         self.hass = hass
         self._name = name
         self._children = children
         self._cmds = commands
+        self._overrides = overrides
         self._attrs = {}
         for key, val in attributes.items():
             attr = val.split("|", 1)
@@ -135,6 +143,7 @@ class UniversalMediaPlayer(MediaPlayerEntity):
         self._state_template = state_template
         if state_template is not None:
             self._state_template.hass = hass
+        self._picture_entity_id = picture_entity_id
 
     async def async_added_to_hass(self):
         """Subscribe to children and template state changes."""
@@ -280,7 +289,10 @@ class UniversalMediaPlayer(MediaPlayerEntity):
     @property
     def media_image_url(self):
         """Image url of current playing media."""
-        return self._child_attr(ATTR_ENTITY_PICTURE)
+        if self._picture_entity_id:
+            return self.hass.states.get(self._picture_entity_id).get(ATTR_ENTITY_PICTURE)
+        else:
+            return self._child_attr(ATTR_ENTITY_PICTURE)
 
     @property
     def entity_picture(self):
@@ -373,29 +385,50 @@ class UniversalMediaPlayer(MediaPlayerEntity):
         """Flag media player features that are supported."""
         flags = self._child_attr(ATTR_SUPPORTED_FEATURES) or 0
 
+        if SERVICE_TURN_ON in self._overrides:
+            flags |= ~SUPPORT_TURN_ON
+
         if SERVICE_TURN_ON in self._cmds:
             flags |= SUPPORT_TURN_ON
+
+        if SERVICE_TURN_OFF in self._overrides:
+            flags |= ~SUPPORT_TURN_OFF
+
         if SERVICE_TURN_OFF in self._cmds:
             flags |= SUPPORT_TURN_OFF
 
+        if SERVICE_VOLUME_UP in self._overrides or SERVICE_VOLUME_DOWN in self._overrides:
+            flags |= ~SUPPORT_VOLUME_STEP
+
         if any([cmd in self._cmds for cmd in [SERVICE_VOLUME_UP, SERVICE_VOLUME_DOWN]]):
             flags |= SUPPORT_VOLUME_STEP
-        else:
-            flags |= ~SUPPORT_VOLUME_STEP
+
+        if SERVICE_VOLUME_SET in self._overrides:
+            flags |= ~SERVICE_VOLUME_SET
 
         if SERVICE_VOLUME_SET in self._cmds:
             flags |= SUPPORT_VOLUME_SET
-        else:
-            flags |= ~SUPPORT_VOLUME_SET
+
+        if SERVICE_VOLUME_MUTE in self._overrides:
+            flags |= ~SERVICE_VOLUME_MUTE
 
         if SERVICE_VOLUME_MUTE in self._cmds and ATTR_MEDIA_VOLUME_MUTED in self._attrs:
             flags |= SUPPORT_VOLUME_MUTE
 
+        if SERVICE_SELECT_SOURCE in self._overrides:
+            flags |= ~SUPPORT_SELECT_SOURCE
+
         if SERVICE_SELECT_SOURCE in self._cmds:
             flags |= SUPPORT_SELECT_SOURCE
 
+        if SERVICE_CLEAR_PLAYLIST in self._overrides:
+            flags |= ~SUPPORT_CLEAR_PLAYLIST
+
         if SERVICE_CLEAR_PLAYLIST in self._cmds:
             flags |= SUPPORT_CLEAR_PLAYLIST
+
+        if SERVICE_SHUFFLE_SET in self._overrides:
+            flags |= ~SUPPORT_SHUFFLE_SET
 
         if SERVICE_SHUFFLE_SET in self._cmds and ATTR_MEDIA_SHUFFLE in self._attrs:
             flags |= SUPPORT_SHUFFLE_SET
