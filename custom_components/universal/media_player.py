@@ -387,49 +387,49 @@ class UniversalMediaPlayer(MediaPlayerEntity):
         flags = self._child_attr(ATTR_SUPPORTED_FEATURES) or 0
 
         if flags & SUPPORT_TURN_ON and SERVICE_TURN_ON in self._overrides:
-            flags |= ~SUPPORT_TURN_ON
+            flags &= ~SUPPORT_TURN_ON
 
         if SERVICE_TURN_ON in self._cmds:
             flags |= SUPPORT_TURN_ON
 
         if flags & SUPPORT_TURN_OFF and SERVICE_TURN_OFF in self._overrides:
-            flags |= ~SUPPORT_TURN_OFF
+            flags &= ~SUPPORT_TURN_OFF
 
         if SERVICE_TURN_OFF in self._cmds:
             flags |= SUPPORT_TURN_OFF
 
         if flags & SUPPORT_VOLUME_STEP and (SERVICE_VOLUME_UP in self._overrides or SERVICE_VOLUME_DOWN in self._overrides):
-            flags |= ~SUPPORT_VOLUME_STEP
+            flags &= ~SUPPORT_VOLUME_STEP
 
         if any([cmd in self._cmds for cmd in [SERVICE_VOLUME_UP, SERVICE_VOLUME_DOWN]]):
             flags |= SUPPORT_VOLUME_STEP
 
         if flags & SUPPORT_VOLUME_SET and SERVICE_VOLUME_SET in self._overrides:
-            flags |= ~SUPPORT_VOLUME_SET
+            flags &= ~SUPPORT_VOLUME_SET
 
         if SERVICE_VOLUME_SET in self._cmds:
             flags |= SUPPORT_VOLUME_SET
 
         if flags & SUPPORT_VOLUME_MUTE and SERVICE_VOLUME_MUTE in self._overrides:
-            flags |= ~SUPPORT_VOLUME_MUTE
+            flags &= ~SUPPORT_VOLUME_MUTE
 
         if SERVICE_VOLUME_MUTE in self._cmds and ATTR_MEDIA_VOLUME_MUTED in self._attrs:
             flags |= SUPPORT_VOLUME_MUTE
 
         if flags & SUPPORT_SELECT_SOURCE and SERVICE_SELECT_SOURCE in self._overrides:
-            flags |= ~SUPPORT_SELECT_SOURCE
+            flags &= ~SUPPORT_SELECT_SOURCE
 
         if SERVICE_SELECT_SOURCE in self._cmds:
             flags |= SUPPORT_SELECT_SOURCE
 
         if flags & SUPPORT_CLEAR_PLAYLIST and SERVICE_CLEAR_PLAYLIST in self._overrides:
-            flags |= ~SUPPORT_CLEAR_PLAYLIST
+            flags &= ~SUPPORT_CLEAR_PLAYLIST
 
         if SERVICE_CLEAR_PLAYLIST in self._cmds:
             flags |= SUPPORT_CLEAR_PLAYLIST
 
         if flags & SUPPORT_SHUFFLE_SET and SERVICE_SHUFFLE_SET in self._overrides:
-            flags |= ~SUPPORT_SHUFFLE_SET
+            flags &= ~SUPPORT_SHUFFLE_SET
 
         if SERVICE_SHUFFLE_SET in self._cmds and ATTR_MEDIA_SHUFFLE in self._attrs:
             flags |= SUPPORT_SHUFFLE_SET
