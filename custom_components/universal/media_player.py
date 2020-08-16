@@ -100,7 +100,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
         vol.Optional(CONF_ATTRS, default={}): vol.Or(
             cv.ensure_list(ATTRS_SCHEMA), ATTRS_SCHEMA
         ),
-        vol.Optional(CONF_PICTURE_ENTITY_ID, default=None): cv.entity_id,
+        vol.Optional(CONF_PICTURE_ENTITY_ID): cv.entity_id,
         vol.Optional(CONF_STATE_TEMPLATE): cv.template,
     },
     extra=vol.REMOVE_EXTRA,
