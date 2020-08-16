@@ -114,7 +114,7 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
         config.get(CONF_NAME),
         config.get(CONF_CHILDREN),
         config.get(CONF_COMMANDS),
-        config.get(CONF_OVERRIDES)
+        config.get(CONF_OVERRIDES),
         config.get(CONF_ATTRS),
         config.get(CONF_STATE_TEMPLATE),
         config.get(CONF_PICTURE_ENTITY_ID),
