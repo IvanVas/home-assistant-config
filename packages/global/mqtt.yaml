@@ -1,6 +1,6 @@
 mqtt:
   broker: !secret local_mqtt_broker
-  discovery: false
+  discovery: true
   password: !secret local_mqtt_password
   port: !secret local_mqtt_port
   username: !secret local_mqtt_username
