@@ -1,1 +1,67 @@
-[]
+- id: '1603819279413'
+  alias: Switch floor bedroom light
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.top_floor_bedroom_switch
+  condition: []
+  action:
+  - service: light.toggle
+    data:
+      brightness_pct: 100
+    entity_id: light.top_floor_bedroom_light
+  mode: single
+- id: '1604006193651'
+  alias: Turn on back door lights
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.backdoor
+    from: 'off'
+    to: 'on'
+  condition: []
+  action:
+  - type: turn_on
+    device_id: a45b739d194411ebb70ea78796ea7750
+    entity_id: light.back_garden_light
+    domain: light
+    brightness_pct: 100
+  mode: single
+- id: '1604009759496'
+  alias: Kitchen PIR
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.kitchenpir
+    from: 'off'
+    to: 'on'
+  condition: []
+  action:
+  - type: toggle
+    device_id: e904a1eb164711eb91d1f9bfe7192015
+    entity_id: light.back_light
+    domain: light
+  - type: toggle
+    device_id: e8fe1b41164711eb85933593d4555339
+    entity_id: light.kitchen_light
+    domain: light
+  - type: toggle
+    device_id: e8fd0c2b164711eba9dc8bc49f28cfa9
+    entity_id: light.dining_light
+    domain: light
+  mode: single
+- id: '1604010348316'
+  alias: Turn off back lights
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.backdoor
+    from: 'on'
+    to: 'off'
+  condition: []
+  action:
+  - type: turn_off
+    device_id: a45b739d194411ebb70ea78796ea7750
+    entity_id: light.back_garden_light
+    domain: light
+  mode: single

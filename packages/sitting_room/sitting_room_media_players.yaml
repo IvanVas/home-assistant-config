@@ -1,3 +1,9 @@
+
+webostv:
+  host: 192.168.20.194
+  name: Sitting Room TV
+
+
 media_player:
   - platform: androidtv
     name: Sitting Room Shield
@@ -14,6 +20,7 @@ media_player:
     name: Sitting Room Kodi Wrapper
     children:
       - media_player.sitting_room_kodi
+    picture_entity_id: media_player.sitting_room_shield
     state_template: >
       {% if ("app_id" in states.media_player.sitting_room_shield.attributes) and (states.media_player.sitting_room_shield.attributes.app_id == 'org.xbmc.kodi') %}
       {{ states("media_player.sitting_room_kodi") }}
@@ -53,29 +60,22 @@ media_player:
         service: remote.send_command
         data:
           entity_id: remote.sitting_room_ir
-          command: volume up
+          command: b64:JgByAB80DzEQERIPDRQRDw41DDQRMQ4TDzISMREwEDIQEBASDxAQAAZ7IDIRMBMOEBISDhIOEDIRMA40ERIRLg40EjANNBIPDRUSDRMABngjLw01EQ8OFBAREA8PMxEwDjQSDw00EjANNBIwDhMREA4TEQANBQAAAAAAAA==
           device: television
           hold_secs: 5
       volume_down:
         service: remote.send_command
         data:
           entity_id: remote.sitting_room_ir
-          command: volume down
+          command: b64:JgByAB80EQ8ONBIwDTQTLw0TEg8OExEwDhMREgsUEQ8ONBEwDjQSAAZ4IjENExIwDTURMA41EQ4OExIPDTQSDw4TERANFBEwDjMSMA4ABnwjMBARETAQMhIvDjQSDg4TERILNBIPDhMRDw4TETMLNBEzDwANBQAAAAAAAA==
           device: television
           hold_secs: 5
       volume_mute:
         service: remote.send_command
         data:
           entity_id: remote.sitting_room_ir
-          command: mute
+          command: b64:JgByACAxETEQMhEwDjQSLw4TEg8NExIPDhMRDw8SERESLg40Ei8TAAZ4IjAONBExEDIRMA40EQ8OExIPDhIREA0UEg4OExEwDjQRMwsABn0eNBEyDDQRMRExEDISDg4TEQ8OExEQEBEQEA4UDzEPMxIvDwANBQAAAAAAAA==
           device: television
     attributes:
       source: media_player.sitting_room_shield|source
       source_list: media_player.sitting_room_shield|source_list
-
-remote:
-  - platform: broadlink
-    type: rm_mini
-    name: Sitting room ir
-    host: !secret broadlink_hostname
-    mac: !secret broadlink_mac

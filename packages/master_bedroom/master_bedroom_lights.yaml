@@ -1,0 +1,6 @@
+binary_sensor:
+  - platform: mqtt
+    name: Top floor bedroom switch
+    state_topic: "shellies/shelly1-E09806964035/input/0"
+    payload_on: "1"
+    payload_off: "0"

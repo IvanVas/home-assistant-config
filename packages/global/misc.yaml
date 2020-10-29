@@ -1,11 +1,15 @@
 config: {}
 
-debugpy:
-  host: 0.0.0.0
-  port: 5678
-  start: true
+# debugpy:
+#   host: 0.0.0.0
+#   port: 5678
+#   start: true
 
 conversation: {}
+
+spc:
+  api_url: http://192.168.20.190:8088
+  ws_url: ws://192.168.20.190:8088/ws/spc
 
 automation: {}
 history: {}
@@ -30,6 +34,7 @@ input_select: {}
 # discovery:
 #   enable:
   
+cloud: {}
 
 ffmpeg: {}
 
