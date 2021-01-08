@@ -61,3 +61,4 @@ appdaemon/compiled
 appdaemon/appdaemon.yaml
 
 !manifest.json
+alexa_media*

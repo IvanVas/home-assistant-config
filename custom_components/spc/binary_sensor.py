@@ -18,7 +18,6 @@ def _get_device_class(zone_type):
         ZoneType.ALARM: DEVICE_CLASS_MOTION,
         ZoneType.ENTRY_EXIT: DEVICE_CLASS_OPENING,
         ZoneType.FIRE: DEVICE_CLASS_SMOKE,
-        ZoneType.UNUSED: DEVICE_CLASS_MOTION,
         ZoneType.TECHNICAL: "power",
     }.get(zone_type)
 

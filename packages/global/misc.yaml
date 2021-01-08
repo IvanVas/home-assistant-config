@@ -1,15 +1,18 @@
 config: {}
 
-# debugpy:
-#   host: 0.0.0.0
-#   port: 5678
-#   start: true
-
 conversation: {}
 
 spc:
-  api_url: http://192.168.20.190:8088
-  ws_url: ws://192.168.20.190:8088/ws/spc
+  api_url: !secret spc_api_url
+  ws_url: !secret spc_ws_url
+
+wake_on_lan: {}
+
+debugpy:
+  start: true
+  wait: false
+  host: 0.0.0.0
+  port: 5678
 
 automation: {}
 history: {}
@@ -52,7 +55,6 @@ tts:
 
 zeroconf:
 
-
 http:
   base_url: !secret external_url
   cors_allowed_origins:
@@ -66,3 +68,50 @@ http:
 updater:
   reporting: false
   include_used_components: true
+
+circadian_lighting: {}
+
+switch:
+  - platform: circadian_lighting
+    lights_ct:
+      - light.back_room
+      - light.bedroom_light
+      - light.front_room_lamp
+      - light.front_room_light
+      - light.hallway_lights
+      - light.landing_lights
+      - light.master_bedroom_light
+      - light.office_light
+      - light.sitting_room_light
+      - light.spare_bedroom_light
+      - light.storage_light
+      - light.top_floor_bedroom_bathroom_light
+      - light.top_floor_landing_light
+
+homekit:
+- filter:
+    include_domains:
+      - cover
+      - alarm_control_panel
+      - climate
+      - vacuum
+    include_entities:
+      - light.front_room_light
+      - switch.christmas_tree
+      - light.hallway_lights
+      - light.back_room
+      - light.dining_light
+      - light.office_light
+      - light.kitchen_light
+      - light.bedroom_light
+      - light.landing_lights
+      - camera.doorstation_1ccae372949f_live
+      - light.front_door
+      - light.front_room_lamp
+      - camera.back
+      - camera.front
+      - camera.side
+      - switch.garden_side_lights
+    exclude_entity_globs:
+      - cover.*raw*
+      - media_player.*raw

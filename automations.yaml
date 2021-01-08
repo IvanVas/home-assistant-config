@@ -1,67 +1,214 @@
-- id: '1603819279413'
-  alias: Switch floor bedroom light
+- id: '1604348223750'
+  alias: Activate Away Mode
   description: ''
   trigger:
   - platform: state
-    entity_id: binary_sensor.top_floor_bedroom_switch
+    entity_id: alarm_control_panel.72_the_willows
+    to: armed_night
+  - platform: state
+    entity_id: alarm_control_panel.72_the_willows
+    to: armed_away
   condition: []
   action:
-  - service: light.toggle
+  - service: light.turn_off
+    data: {}
+    entity_id:
+    - light.front_room_light
+    - light.front_door_light
+    - light.front_room_lamp
+    - light.hallway_lights
+    - light.back_room
+    - light.dining_light
+    - light.office_light
+    - light.kitchen_light
+    - light.landing_lights
+  - service: media_player.turn_off
+    data: {}
+    entity_id:
+    - media_player.front_room_television
+    - media_player.back_room_television
+  - service: switch.turn_off
+    data: {}
+    entity_id:
+    - switch.christmas_tree
+    - switch.garden_side_lights
+  mode: single
+- id: '1606150224406'
+  alias: Restart modem at 3 am
+  description: ''
+  trigger:
+  - platform: time
+    at: 05:00
+  condition: []
+  action:
+  - service: switch.turn_off
+    data: {}
+    entity_id: switch.networking_power_strip_modem
+  - delay: '5'
+  - service: switch.turn_on
+    data: {}
+    entity_id: switch.networking_power_strip_modem
+  mode: single
+- id: '1606696622014'
+  alias: Deactivate Night Mode
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: alarm_control_panel.default
+    from: armed_home
+    to: disarmed
+  condition: []
+  action:
+  - service: script.control_all_blinds
     data:
-      brightness_pct: 100
-    entity_id: light.top_floor_bedroom_light
+      position: 60
+  - service: light.turn_on
+    data: {}
+    entity_id: light.landing_lights
+  - delay: '600'
+  - service: light.turn_off
+    data: {}
+    entity_id: light.landing_lights
   mode: single
-- id: '1604006193651'
-  alias: Turn on back door lights
+- id: '1608426068727'
+  alias: Motion-activated Hallway Lights
+  description: ''
+  use_blueprint:
+    path: homeassistant/motion_light.yaml
+    input:
+      no_motion_wait: '300'
+      motion_entity: binary_sensor.hallpir
+      light_target:
+        entity_id: light.hallway_lights
+- id: '1608426353223'
+  alias: Motion-activated Back Room Lights
+  description: ''
+  use_blueprint:
+    path: homeassistant/motion_light.yaml
+    input:
+      no_motion_wait: '1800'
+      motion_entity: binary_sensor.kitchenpir
+      below_elevation: '3'
+      light_target:
+        entity_id:
+        - light.back_room
+- id: '1608426406509'
+  alias: Motion-activated Front Room Light
+  description: ''
+  use_blueprint:
+    path: homeassistant/motion_light.yaml
+    input:
+      no_motion_wait: '1800'
+      motion_entity: binary_sensor.frontroompir
+      below_elevation: '3'
+      light_target:
+        entity_id: light.front_room_light
+- id: '1608427010048'
+  alias: Motion-activated Office Light
+  description: ''
+  use_blueprint:
+    path: homeassistant/motion_light.yaml
+    input:
+      below_elevation: '3'
+      motion_entity: binary_sensor.officepir
+      light_target:
+        entity_id: light.office_light
+      no_motion_wait: '1800'
+- id: '1608427268504'
+  alias: Motion-activated Entrance Lighting
+  description: ''
+  use_blueprint:
+    path: homeassistant/motion_light.yaml
+    input:
+      below_elevation: '3'
+      motion_entity: binary_sensor.frontdoor
+      light_target:
+        entity_id:
+        - light.hallway_lights
+        - light.front_door_light
+- id: '1608427911584'
+  alias: Motion-activated Front Door Light
+  description: ''
+  use_blueprint:
+    path: homeassistant/motion_light.yaml
+    input:
+      below_elevation: '3'
+      motion_entity: binary_sensor.network_video_recorder_motion_1
+      light_target:
+        entity_id: light.front_door_light
+      no_motion_wait: '120'
+- id: '1608428780568'
+  alias: Motion-activated Light
+  description: ''
+  use_blueprint:
+    path: homeassistant/motion_light.yaml
+    input:
+      below_elevation: '3'
+      motion_entity: binary_sensor.backwindow
+      light_target:
+        entity_id: light.20126030f4cfa20e1a58
+- id: '1608589295778'
+  alias: Motion-activated Landing Light
+  description: ''
+  use_blueprint:
+    path: homeassistant/motion_light.yaml
+    input:
+      below_elevation: '3'
+      motion_entity: binary_sensor.landingpir
+      light_target:
+        entity_id: light.landing_lights
+      no_motion_wait: '120'
+- id: '1608743833521'
+  alias: Close back room blinds when TV is on
   description: ''
   trigger:
   - platform: state
-    entity_id: binary_sensor.backdoor
-    from: 'off'
+    entity_id: media_player.sitting_room_lg
     to: 'on'
-  condition: []
+  condition:
+  - condition: template
+    value_template: '{{ state_attr(''sun.sun'',''elevation'') <= 2.0 }}'
   action:
-  - type: turn_on
-    device_id: a45b739d194411ebb70ea78796ea7750
-    entity_id: light.back_garden_light
-    domain: light
-    brightness_pct: 100
+  - service: cover.close_cover
+    data: {}
+    entity_id: cover.back_room_blinds
   mode: single
-- id: '1604009759496'
-  alias: Kitchen PIR
+- id: '1608941243514'
+  alias: Activate Night Mode
   description: ''
   trigger:
   - platform: state
-    entity_id: binary_sensor.kitchenpir
-    from: 'off'
-    to: 'on'
+    entity_id: alarm_control_panel.72_the_willows
+    to: armed_night
   condition: []
   action:
-  - type: toggle
-    device_id: e904a1eb164711eb91d1f9bfe7192015
-    entity_id: light.back_light
-    domain: light
-  - type: toggle
-    device_id: e8fe1b41164711eb85933593d4555339
-    entity_id: light.kitchen_light
-    domain: light
-  - type: toggle
-    device_id: e8fd0c2b164711eba9dc8bc49f28cfa9
-    entity_id: light.dining_light
-    domain: light
+  - service: script.control_all_blinds
+    data:
+      position: 0
   mode: single
-- id: '1604010348316'
-  alias: Turn off back lights
+- id: '1609721584213'
+  alias: Close blinds at sun down
   description: ''
   trigger:
-  - platform: state
-    entity_id: binary_sensor.backdoor
-    from: 'on'
-    to: 'off'
+  - platform: template
+    value_template: '{{ state_attr(''sun.sun'',''elevation'') <= 2.0 }}'
   condition: []
   action:
-  - type: turn_off
-    device_id: a45b739d194411ebb70ea78796ea7750
-    entity_id: light.back_garden_light
-    domain: light
+  - service: script.control_all_blinds
+    data:
+      position: 0
+    entity_id: script.control_all_blinds
+  mode: single
+- id: '1609721634334'
+  alias: Open blinds at 7am
+  description: ''
+  trigger:
+  - platform: time
+    at: 07:00
+  condition: []
+  action:
+  - service: script.control_all_blinds
+    data:
+      position: 60
+    entity_id: script.control_all_blinds
   mode: single

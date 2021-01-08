@@ -1,81 +1,157 @@
-
 webostv:
-  host: 192.168.20.194
-  name: Sitting Room TV
-
+- host: 192.168.20.173
+  name: Sitting room LG
+  turn_on_action:
+    service: wake_on_lan.send_magic_packet
+    data:
+      mac: 58-fd-b1-56-4c-94
+- host: 192.168.20.108
+  name: Front room LG
+  turn_on_action:
+    service: wake_on_lan.send_magic_packet
+    data:
+      mac: 58-fd-b1-82-bf-e1
 
 media_player:
   - platform: androidtv
-    name: Sitting Room Shield
-    host: !secret sitting_room_shield_hostname
+    name: Back room shield
+    host: 192.168.20.132
+    device_class: androidtv
+    get_sources: true
+    exclude_unnamed_apps: true
   - platform: kodi
-    name: Sitting Room Kodi
-    host: !secret sitting_room_shield_hostname
+    name: Back room kodi raw
+    host: 192.168.20.132
     turn_off_action:
       service: kodi.call_method
       data:
-        entity_id: media_player.sitting_room_kodi
+        entity_id: media_player.back_room_kodi_raw
         method: Application.Quit
   - platform: universal
-    name: Sitting Room Kodi Wrapper
+    name: Back room Kodi
     children:
-      - media_player.sitting_room_kodi
-    picture_entity_id: media_player.sitting_room_shield
-    state_template: >
-      {% if ("app_id" in states.media_player.sitting_room_shield.attributes) and (states.media_player.sitting_room_shield.attributes.app_id == 'org.xbmc.kodi') %}
-      {{ states("media_player.sitting_room_kodi") }}
-      {% else %}
-      off
-      {% endif %}
+      - media_player.back_room_kodi_raw
+    picture_entity_id: media_player.back_room_shield
     commands:
       turn_on:
         service: media_player.select_source
         data:
-          entity_id: media_player.sitting_room_shield
+          entity_id: media_player.back_room_shield
           source: Kodi
       turn_off:
         service: kodi.call_method
         data:
-          entity_id: media_player.sitting_room_kodi
+          entity_id: media_player.back_room_kodi_raw
           method: Application.Quit
   - platform: universal
-    name: Sitting Room TV
+    name: Back room Television
     children:
-     - media_player.sitting_room_kodi_wrapper
-     - media_player.sitting_room_shield
-     - media_player.sitting_room_cast
-    picture_entity_id: media_player.sitting_room_shield
+     - media_player.back_room_shield
+     - media_player.back_room_lg
+     - media_player.back_room_kodi
+    picture_entity_id: media_player.back_room_nvidia_shield
     overrides:
-      - volume_set
+    - volume_set
     commands:
       turn_on:
-        service: switch.turn_on
+        service: media_player.turn_on
         data:
-          entity_id: switch.sitting_room_media
+          entity_id: media_player.back_room_lg
       turn_off:
-        service: switch.turn_off
+        service: media_player.turn_off
         data:
-          entity_id: switch.sitting_room_media
+          entity_id: media_player.back_room_lg
       volume_up:
-        service: remote.send_command
+        service: media_player.volume_up
         data:
-          entity_id: remote.sitting_room_ir
-          command: b64:JgByAB80DzEQERIPDRQRDw41DDQRMQ4TDzISMREwEDIQEBASDxAQAAZ7IDIRMBMOEBISDhIOEDIRMA40ERIRLg40EjANNBIPDRUSDRMABngjLw01EQ8OFBAREA8PMxEwDjQSDw00EjANNBIwDhMREA4TEQANBQAAAAAAAA==
-          device: television
-          hold_secs: 5
+          entity_id:  media_player.back_room_lg
       volume_down:
-        service: remote.send_command
+        service: media_player.volume_down
         data:
-          entity_id: remote.sitting_room_ir
-          command: b64:JgByAB80EQ8ONBIwDTQTLw0TEg8OExEwDhMREgsUEQ8ONBEwDjQSAAZ4IjENExIwDTURMA41EQ4OExIPDTQSDw4TERANFBEwDjMSMA4ABnwjMBARETAQMhIvDjQSDg4TERILNBIPDhMRDw4TETMLNBEzDwANBQAAAAAAAA==
-          device: television
-          hold_secs: 5
+          entity_id: media_player.back_room_lg
       volume_mute:
-        service: remote.send_command
+        service: media_player.volume_mute
         data:
-          entity_id: remote.sitting_room_ir
-          command: b64:JgByACAxETEQMhEwDjQSLw4TEg8NExIPDhMRDw8SERESLg40Ei8TAAZ4IjAONBExEDIRMA40EQ8OExIPDhIREA0UEg4OExEwDjQRMwsABn0eNBEyDDQRMRExEDISDg4TEQ8OExEQEBEQEA4UDzEPMxIvDwANBQAAAAAAAA==
-          device: television
+          entity_id:  media_player.back_room_lg
+          is_volume_muted: '{{ is_volume_muted }}'
+      select_source:
+        service: media_player.select_source
+        data:
+          entity_id: media_player.back_room_shield
+          source: '{{ source }}'
     attributes:
-      source: media_player.sitting_room_shield|source
-      source_list: media_player.sitting_room_shield|source_list
+      state: media_player.back_room_shield
+      is_volume_muted: media_player.back_room_lg|is_volume_muted
+      source: media_player.back_room_shield|source
+      source_list: media_player.back_room_shield|source_list
+  - platform: androidtv
+    name: Front room shield
+    host: 192.168.20.129
+    device_class: androidtv
+    get_sources: true
+    exclude_unnamed_apps: true
+  - platform: kodi
+    name: Front room kodi raw
+    host: 192.168.20.129
+    turn_off_action:
+      service: kodi.call_method
+      data:
+        entity_id: media_player.front_room_kodi_raw
+        method: Application.Quit
+  - platform: universal
+    name: Front room Kodi
+    children:
+      - media_player.front_room_kodi_raw
+    picture_entity_id: media_player.front_room_shield
+    commands:
+      turn_on:
+        service: media_player.select_source
+        data:
+          entity_id: media_player.front_room_shield
+          source: Kodi
+      turn_off:
+        service: kodi.call_method
+        data:
+          entity_id: media_player.front_room_kodi_raw
+          method: Application.Quit
+  - platform: universal
+    name: Front room Television
+    children:
+     - media_player.front_room_shield
+     - media_player.front_room_lg
+     - media_player.front_room_kodi
+    picture_entity_id: media_player.front_room_nvidia_shield
+    overrides:
+    - volume_set
+    commands:
+      turn_on:
+        service: media_player.turn_on
+        data:
+          entity_id: media_player.front_room_lg
+      turn_off:
+        service: media_player.turn_off
+        data:
+          entity_id: media_player.front_room_lg
+      volume_up:
+        service: media_player.volume_up
+        data:
+          entity_id:  media_player.front_room_lg
+      volume_down:
+        service: media_player.volume_down
+        data:
+          entity_id: media_player.front_room_lg
+      volume_mute:
+        service: media_player.volume_mute
+        data:
+          entity_id:  media_player.front_room_lg
+          is_volume_muted: '{{ is_volume_muted }}'
+      select_source:
+        service: media_player.select_source
+        data:
+          entity_id: media_player.front_room_shield
+          source: '{{ source }}'
+    attributes:
+      state: media_player.front_room_shield
+      is_volume_muted: media_player.front_room_lg|is_volume_muted
+      source: media_player.front_room_shield|source
+      source_list: media_player.front_room_shield|source_list

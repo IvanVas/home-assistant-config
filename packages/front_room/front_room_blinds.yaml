@@ -1,43 +1,243 @@
-cover:
-  - platform: mqtt
-    name: "Front room blind"
-    command_topic: "cmnd/rf_bridge/Backlog"
-    payload_open:  "RfRaw AAB0350508131005C802EE01541E8C012323322332323232233223322332233232233223233232233232323232233223323232232323233455; RfRaw 0"
+--- 
+cover: 
+  - 
+    availability_topic: RF_BRIDGE_C37AE8/tele/LWT
+    command_topic: RF_BRIDGE_C37AE8/cmnd/Backlog
+    name: "Kitchen Blind Raw"
+    optimistic: true
+    payload_available: Online
     payload_close: "RfRaw AAB035050812FC05DC02D001721EF0012323322332323232233223322332233232233223233232233232323232233223323223233232232455; Rfraw 0"
+    payload_not_available: Offline
+    payload_open: "RfRaw AAB0350508131005C802EE01541E8C012323322332323232233223322332233232233223233232233232323232233223323232232323233455; RfRaw 0"
     payload_stop: "RfRaw AAB035050812F205DC02C601721EF0012323322332323232233223322332233232233223233232233232323232233223322332233223322455; rfraw 0"
-  - platform: mqtt
-    name: "todo a"
-    command_topic: "cmnd/rf_bridge/Backlog"
+    platform: mqtt
+    qos: 2
+  - 
+    covers: 
+      kitchen_blind: 
+        device_class: shade
+        friendly_name: "Kitchen blind"
+        position_template: "{{ states('input_number.kitchen_blind_position') }}"
+        set_cover_position: 
+          data_template: 
+            closing_time: 19
+            entity_id: cover.kitchen_blind_raw
+            opening_time: 19
+            position_previous: input_number.kitchen_blind_position
+            position_set: "{{ position }}"
+          service: script.set_cover_position
+    platform: template
+  - 
+    availability_topic: RF_BRIDGE_C36CBD/tele/LWT
+    command_topic: RF_BRIDGE_C36CBD/cmnd/Backlog
+    name: "Back door blind raw"
+    optimistic: true
+    payload_available: Online
+    payload_close: "rfraw AA B0 35 05 08 12DE 05DC 02D0 0168 1EB4 0123323223232323232332233223322332323232322323322332323232322332233232232332322324 55; rfraw 0"
+    payload_not_available: Offline
     payload_open: "rfraw AA B0 35 05 08 12DE 05D2 02D0 0172 1E96 0123323223232323232332233223322332323232322323322332323232322332233232322332323224 55; rfraw 0"
     payload_stop: "rfraw AA B0 35 05 08 12D4 05D2 02D0 0172 1EAA 0123323223232323232332233223322332323232322323322332323232322332233223322332233224 55; rfraw 0"
-    payload_close: "rfraw AA B0 35 05 08 12DE 05DC 02D0 0168 1EB4 0123323223232323232332233223322332323232322323322332323232322332233232232332322324 55; rfraw 0"
-  - platform: mqtt
-    name: "todo b"
-    command_topic: "cmnd/rf_bridge/Backlog"
+    platform: mqtt
+    qos: 2
+  - 
+    covers: 
+      back_door_blind: 
+        device_class: shade
+        friendly_name: "Back door blind"
+        position_template: "{{ states('input_number.back_door_blind_position') }}"
+        set_cover_position: 
+          data_template: 
+            closing_time: 32
+            entity_id: cover.back_door_blind_raw
+            opening_time: 32
+            position_previous: input_number.back_door_blind_position
+            position_set: "{{ position }}"
+          service: script.set_cover_position
+    platform: template
+  - 
+    availability_topic: RF_BRIDGE_C352D6/tele/LWT
+    command_topic: RF_BRIDGE_C352D6/cmnd/Backlog
+    name: "Spare bedroom blind raw"
+    optimistic: true
+    payload_available: Online
+    payload_close: "rfraw AA B0 35 05 08 1338 05DC 02E4 015E 1ED2 0123323232322323232332233223322332233232233223322332323232322332233232232323233234 55; rfraw 0"
+    payload_not_available: Offline
     payload_open: "rfraw AA B0 35 05 08 1342 05DC 02EE 015E 2058 0123323232322323232332233223322332233232233223322332323232322332233232322323232334 55; rfraw 0"
     payload_stop: "rfraw AA B0 35 05 08 1338 05DC 02E4 0168 1F0E 0123323232322323232332233223322332233232233223322332323232322332233223322332233224 55; rfraw 0"
-    payload_close: "rfraw AA B0 35 05 08 1338 05DC 02E4 015E 1ED2 0123323232322323232332233223322332233232233223322332323232322332233232232323233234 55; rfraw 0"
-  - platform: mqtt
-    name: "todo c"
-    command_topic: "cmnd/rf_bridge/Backlog"
-    payload_open: "AA B0 35 05 08 12FC 05E6 02C6 017C 1E96 0123323223232332232332233223322332323223323223232332323232322332233232322332323224 55; rfraw 0"
-    payload_stop: "rfraw AA B0 35 05 08 1306 05D2 02E4 0168 1EC8 0123323223232332232332233223322332323223323223232332323232322332233223322332233224 55; rfraw 0"
+    platform: mqtt
+    qos: 2
+  - 
+    covers: 
+      spare_bedroom_blind: 
+        device_class: shade
+        friendly_name: "Spare bedroom blind"
+        position_template: "{{ states('input_number.spare_bedroom_blind_position') }}"
+        set_cover_position: 
+          data_template: 
+            closing_time: 23
+            entity_id: cover.spare_bedroom_blind_raw
+            opening_time: 23
+            position_previous: input_number.spare_bedroom_blind_position
+            position_set: "{{ position }}"
+          service: script.set_cover_position
+    platform: template
+  - 
+    availability_topic: RF_BRIDGE_C3795C/tele/LWT
+    command_topic: RF_BRIDGE_C3795C/cmnd/Backlog
+    name: "Back window blind raw"
+    optimistic: true
+    payload_available: Online
     payload_close: "rfraw AA B0 35 05 08 131A 05D2 02DA 0168 1EBE 0123323223232332232332233223322332323223323223232332323232322332233232232323233234 55; rfraw 0"
-  - platform: mqtt
-    name: "todo d"
-    command_topic: "cmnd/rf_bridge/Backlog"
+    payload_not_available: Offline
+    payload_open: "rfraw AAB0350508131A05C802EE014A1EAA481A3B2B2A3A3A3B2A3A3B2A3B2A3B2A3B2B2B2A3B2B2A3A3A3B2B2B2B2B2A3B2A3B2B2B2A3A3A3A3B55; rfraw 0"
+    payload_stop: "rfraw AA B0 35 05 08 1306 05D2 02E4 0168 1EC8 0123323223232332232332233223322332323223323223232332323232322332233223322332233224 55; rfraw 0"
+    platform: mqtt
+    qos: 2
+  - 
+    covers: 
+      back_window_blind: 
+        device_class: shade
+        friendly_name: "Back window blind"
+        position_template: "{{ states('input_number.back_window_blind_position') }}"
+        set_cover_position: 
+          data_template: 
+            closing_time: 33
+            entity_id: cover.back_window_blind_raw
+            opening_time: 33
+            position_previous: input_number.back_window_blind_position
+            position_set: "{{ position }}"
+          service: script.set_cover_position
+    platform: template
+  - 
+    availability_topic: RF_BRIDGE_C36CBD/tele/LWT
+    command_topic: RF_BRIDGE_C36CBD/cmnd/Backlog
+    name: "Back door window blind raw"
+    optimistic: true
+    payload_available: Online
+    payload_close: "rfraw AA B0 35 05 08 1310 05FA 02C6 0186 1EC8 0123233223323232322332233223322332322332233232323232323232322332233232232332322324 55; rfraw 0"
+    payload_not_available: Offline
     payload_open: "rfraw AA B0 35 05 08 1306 05F0 02C6 0186 1EB4 0123233223323232322332233223322332322332233232323232323232322332233232322332323224 55; rfraw 0"
     payload_stop: "rfraw AA B0 35 05 08 1324 05DC 02E4 0168 1EFA 0123233223323232322332233223322332322332233232323232323232322332233223322332233224 55; rfraw 0"
-    payload_close: "rfraw AA B0 35 05 08 1310 05FA 02C6 0186 1EC8 0123233223323232322332233223322332322332233232323232323232322332233232232332322324 55; rfraw 0"
-  - platform: mqtt
-    name: "todo e"
-    command_topic: "cmnd/rf_bridge/Backlog"
+    platform: mqtt
+    qos: 2
+  - 
+    covers: 
+      back_door_window_blind: 
+        device_class: shade
+        friendly_name: "Back door window blind"
+        position_template: "{{ states('input_number.back_door_window_blind_position') }}"
+        set_cover_position: 
+          data_template: 
+            closing_time: 32
+            entity_id: cover.back_door_window_blind_raw
+            opening_time: 32
+            position_previous: input_number.back_door_window_blind_position
+            position_set: "{{ position }}"
+          service: script.set_cover_position
+    platform: template
+  - 
+    entities: 
+      - cover.back_window_blind
+      - cover.back_door_window_blind
+      - cover.back_door_blind
+      - cover.kitchen_blind
+    name: "Back room blinds"
+    platform: group
+    device_class: shade
+  - 
+    availability_topic: RF_BRIDGE_C36CBD/tele/LWT
+    command_topic: RF_BRIDGE_C36CBD/cmnd/Backlog
+    name: "Front room blind raw"
+    optimistic: true
+    payload_available: Online
+    payload_close: "rfraw AA B0 35 05 08 12CA 05B4 02DA 0154 1E32 0123233223323232322332233223322332323223323232232332323232322332233232232323233234 55; rfraw 0"
+    payload_not_available: Offline
     payload_open: "rfraw AA B0 35 05 08 12B6 05D2 02C6 0168 1E5A 0123233223323232322332233223322332323223323232232332323232322332233232322332323224 55; rfraw 0"
     payload_stop: "rfraw AA B0 35 05 08 12CA 05BE 02D0 015E 1E3C 0123233223323232322332233223322332323223323232232332323232322332233223322332233224 55; rfraw 0"
-    payload_close: "rfraw AA B0 35 05 08 12CA 05B4 02DA 0154 1E32 0123233223323232322332233223322332323223323232232332323232322332233232232323233234 55; rfraw 0"
-  - platform: mqtt
-    name: "todo f"
-    command_topic: "cmnd/rf_bridge/Backlog"
+    platform: mqtt
+    qos: 2
+  - 
+    covers: 
+      front_room_blind: 
+        device_class: shade
+        friendly_name: "Front room blind"
+        position_template: "{{ states('input_number.front_room_blind_position') }}"
+        set_cover_position: 
+          data_template: 
+            closing_time: 33
+            entity_id: cover.front_room_blind_raw
+            opening_time: 33
+            position_previous: input_number.front_room_blind_position
+            position_set: "{{ position }}"
+          service: script.set_cover_position
+    platform: template
+  - 
+    availability_topic: RF_BRIDGE_C36CBD/tele/LWT
+    command_topic: RF_BRIDGE_C36CBD/cmnd/Backlog
+    name: "Office Blind raw"
+    optimistic: true
+    payload_available: Online
+    payload_close: "rfraw AA B0 35 05 08 12FC 05E6 02D0 017C 1EB4 0123323232233223232332233223322332233232233232233232323232322332233232232332322324 55; rfraw 0"
+    payload_not_available: Offline
     payload_open: "rfraw AA B0 35 05 08 1306 05DC 02D0 017C 1ED2 0123323232233223232332233223322332233232233232233232323232322332233232322332323224 55; rfraw 0"
     payload_stop: "rfraw AA B0 35 05 08 1310 05D2 02DA 0168 1EBE 0123323232233223232332233223322332233232233232233232323232322332233223322332233224 55; rfraw 0"
-    payload_close: "rfraw AA B0 35 05 08 12FC 05E6 02D0 017C 1EB4 0123323232233223232332233223322332233232233232233232323232322332233232232332322324 55; rfraw 0"
+    platform: mqtt
+    qos: 2
+  - 
+    covers: 
+      office_blind: 
+        device_class: shade
+        friendly_name: "Office blind"
+        position_template: "{{ states('input_number.office_blind_position') }}"
+        set_cover_position: 
+          data_template: 
+            closing_time: 23
+            entity_id: cover.office_blind_raw
+            opening_time: 23
+            position_previous: input_number.office_blind_position
+            position_set: "{{ position }}"
+          service: script.set_cover_position
+    platform: template
+input_number: 
+  back_door_blind_position: 
+    max: 100
+    min: 0
+    name: "back door blind position"
+    step: 1
+    unit_of_measurement: "%"
+  back_door_window_blind_position: 
+    max: 100
+    min: 0
+    name: "back door window blind position"
+    step: 1
+    unit_of_measurement: "%"
+  back_window_blind_position: 
+    max: 100
+    min: 0
+    name: "back window blind position"
+    step: 1
+    unit_of_measurement: "%"
+  front_room_blind_position: 
+    max: 100
+    min: 0
+    name: "front room blind position"
+    step: 1
+    unit_of_measurement: "%"
+  kitchen_blind_position: 
+    max: 100
+    min: 0
+    name: "kitchen blind position"
+    step: 1
+    unit_of_measurement: "%"
+  office_blind_position: 
+    max: 100
+    min: 0
+    name: "office blind position"
+    step: 1
+    unit_of_measurement: "%"
+  spare_bedroom_blind_position: 
+    max: 100
+    min: 0
+    name: "spare bedroom blind position"
+    step: 1
+    unit_of_measurement: "%"

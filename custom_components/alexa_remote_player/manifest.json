@@ -1,0 +1,13 @@
+{
+  "domain": "alexa_remote_player",
+  "name": "Amazon Alexa Remote Player",
+  "documentation": "https://www.home-assistant.io/integrations/alexa",
+  "dependencies": [
+    "http"
+  ],
+  "after_dependencies": [
+    "camera"
+  ],
+  "codeowners": [
+  ]
+}

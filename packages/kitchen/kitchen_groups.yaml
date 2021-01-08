@@ -1,0 +1,7 @@
+light:
+  - platform: group
+    name: Back Room Lights
+    entities:
+      - light.kitchen_light
+      - light.dining_light
+      - light.sitting_room_light

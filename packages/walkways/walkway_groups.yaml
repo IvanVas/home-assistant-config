@@ -1,0 +1,11 @@
+light:
+  - platform: group
+    name: Hallway lights
+    entities:
+      - light.hallway_front_light
+      - light.hallway_back_light
+  - platform: group
+    name: Landing lights
+    entities:
+      - light.top_floor_landing_light
+      - light.midlde_floor_landing_light

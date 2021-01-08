@@ -72,6 +72,11 @@ class SpcAlarm(alarm.AlarmControlPanelEntity):
         return False
 
     @property
+    def code_arm_required(self):
+        """Whether the code is required for arm actions."""
+        return False
+
+    @property
     def name(self):
         """Return the name of the device."""
         return self._area.name

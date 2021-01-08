@@ -1,0 +1,68 @@
+blueprint:
+  name: Motion-activated Light
+  description: Turn on a light when motion is detected.
+  domain: automation
+  source_url: https://github.com/home-assistant/core/blob/dev/homeassistant/components/automation/blueprints/motion_light.yaml
+  input:
+    motion_entity:
+      name: Motion Sensor
+      selector:
+        entity:
+          domain: binary_sensor
+    light_target:
+      name: Light
+      selector:
+        target:
+          entity:
+            domain: light
+    no_motion_wait:
+      name: Wait time
+      description: Time to leave the light on after last motion is detected.
+      default: 120
+      selector:
+        number:
+          min: 0
+          max: 3600
+          unit_of_measurement: seconds
+    below_elevation:
+      name: Below sun elevation
+      description: Solar elevation. This is the angle between the sun and the horizon. Negative values mean the sun is below the horizon.
+      default: 3
+      selector:
+        number:
+          min: -90
+          max: 90
+          unit_of_measurement: degrees
+
+
+# If motion is detected within the delay,
+# we restart the script.
+mode: restart
+max_exceeded: silent
+
+trigger:
+  platform: state
+  entity_id: !input motion_entity
+  to: 'on'
+
+variables:
+  below_elevation: !input below_elevation
+  light_target: !input light_target
+
+condition:
+  - condition: template
+    value_template: "{{ state_attr('sun.sun','elevation') <= (below_elevation | float) }}"
+#   - condition: template
+#     value_template: "{{ is_state(light_target, 'off') }}"
+
+action:
+  - service: light.turn_on
+    target: !input light_target
+  - wait_for_trigger:
+      platform: state
+      entity_id: !input motion_entity
+      from: "on"
+      to: "off"
+  - delay: !input no_motion_wait
+  - service: light.turn_off
+    target: !input light_target

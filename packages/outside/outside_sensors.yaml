@@ -1,0 +1,10 @@
+sensor:
+  - platform: template
+    sensors:
+      dark_outside:
+        value_template: >
+          {% if (states.sun.sun.attributes.elevation|int < 3) %} True
+          {% elif ((states.sun.sun.attributes.elevation|int < 4.5) and (states.sensor.weatherbit_cloud_coverage.state|int > 90)) %}True
+          {% elif ((states.sun.sun.attributes.elevation|int < 6.5) and (states.sensor.weatherbit_cloud_coverage.state|int > 95)) %}True
+          {% elif (states.sensor.weatherbit_cloud_coverage.state|int > 90) %}True
+          {% else %} False {% endif %}

@@ -1,0 +1,3 @@
+home_connect:
+  client_id: 0EC090D01874B2AADF1DD5DD44449CDC9BD3DEC7AABD79C2709CEB6A0137E1F7
+  client_secret: !secret home_connect_client_secret

@@ -1,0 +1,109 @@
+away_mode:
+  alias: away mode
+  sequence:
+  - service: alarm_control_panel.alarm_arm_night
+    data: {}
+    entity_id: alarm_control_panel.default
+  mode: single
+night_mode_2:
+  alias: Night Mode
+  sequence:
+  - service: alarm_control_panel.alarm_arm_night
+    data: {}
+    entity_id: alarm_control_panel.72_the_willows
+  mode: single
+lights_off_except:
+  icon: mdi:home-lightbulb
+  fields:
+    exclude_lights:
+      description: Excluded lights as list
+  sequence:
+  - service: logbook.log
+    data_template:
+      entity_id: script.turn_off_lights
+      name: Exclude log
+      message: 'Turning of all lights except: {{ exclude_lights }}'
+  - service: light.turn_off
+    data_template:
+      entity_id: '{%- for device in states.light|rejectattr(''entity_id'',''in'',
+        exclude_lights )|rejectattr(''state'',''in'',''off'') %}{%- if loop.first
+        %}{%- else %}, {% endif %}{{ device.entity_id }}{%- if loop.last %}{% endif
+        %}{%- endfor  %}'
+control_all_blinds:
+  fields:
+    exclude:
+      description: Excluded blinds as list
+    position:
+      description: Position to set the blinds to as an integer
+  sequence:
+  - service: logbook.log
+    data_template:
+      entity_id: script.control_all_blinds
+      name: Exclude log
+      message: Settings all blinds to {{ position }} except {{ exclude }}
+  - service: cover.set_cover_position
+    data_template:
+      position: '{{ position }}'
+      entity_id: '{%- for device in states.cover|rejectattr(''entity_id'',''in'',
+        exclude ) %}{%- if loop.first %}{%- else %}, {% endif %}{{ device.entity_id
+        }}{%- if loop.last %}{% endif %}{%- endfor  %}
+
+        '
+dummy:
+  sequence: []
+set_cover_position_queuer:
+  mode: queued
+  fields:
+    service:
+      description: The service to call
+    entity_id:
+      description: The entity_id to act on
+  sequence:
+  - service: system_log.write
+    data:
+      message: calling {{ service }} on {{ entity_id }}
+  - service: '{{ service }}'
+    data:
+      entity_id: '{{ entity_id }}'
+  - delay:
+      milliseconds: 500
+  max: 100
+set_cover_position:
+  mode: parallel
+  sequence:
+  - service: script.set_cover_position_queuer
+    data:
+      service: "{% if position_set | float  == 0 %}\n  cover.close_cover\n{% elif\
+        \ position_set | float == 100 %}\n  cover.open_cover\n{% elif position_set\
+        \ | float == states(position_previous) | float %}\n  script.dummy\n{% elif\
+        \ position_set | float > states(position_previous) | float %}\n  cover.open_cover\n\
+        {% elif position_set | float < states(position_previous) | float %}\n  cover.close_cover\n\
+        {% endif %}\n"
+      entity_id: '{{ entity_id }}'
+  - delay:
+      seconds: "{% if position_set | float == 0 %}\n  {{ ( states(position_previous)\
+        \ | float / 100 * closing_time | round ) | int }}\n{% elif position_set |\
+        \ float == 100 %}\n  {{ ( ( 100 - states(position_previous) | float ) / 100\
+        \ * opening_time | round ) | int }}\n{% elif position_set | float > states(position_previous)\
+        \ | float %}\n  {{ (( position_set | float - states(position_previous) | float\
+        \ ) / 100 * opening_time | round ) | int }}\n{% elif position_set | float\
+        \ < states(position_previous) | float %}\n  {{ (( states(position_previous)\
+        \ | float - position_set | float ) / 100 * closing_time | round ) | int }}\n\
+        {% endif %}\n"
+  - service: script.set_cover_position_queuer
+    data:
+      service: "{% if position_set | float == 0 %}\n  cover.close_cover\n{% elif position_set\
+        \ | float == 100 %}\n  cover.open_cover\n{% elif position_set | float > states(position_previous)\
+        \ | float %}\n  cover.stop_cover\n{% elif position_set | float < states(position_previous)\
+        \ | float %}\n  cover.stop_cover\n{% endif %}\n"
+      entity_id: '{{ entity_id }}'
+  - service: input_number.set_value
+    data_template:
+      entity_id: '{{ position_previous }}'
+      value: '{{ position_set }}'
+home_mode:
+  alias: Home Mode
+  sequence:
+  - service: alarm_control_panel.alarm_arm_home
+    data: {}
+  mode: single

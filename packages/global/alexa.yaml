@@ -1,33 +1,46 @@
-# Ref https://github.com/custom-components/alexa_media_player
-
-alexa_media:
-  accounts:
-    - email: !secret amazon_user
-      password: !secret amazon_password
-      url: amazon.co.uk
-      include_devices:
-        - "Office"
-        - "Kitchen"
-        - "Sitting room"
-        - "Bedroom"
-        - "Guest bedroom"
-
-# Ref https://www.home-assistant.io/integrations/alexa.smart_home/
-
 alexa:
   smart_home:
-    locale: en-US
+    locale: en-GB
     endpoint: https://api.amazonalexa.com/v3/events
+    client_id: !secret alexa_client_id
+    client_secret: !secret alexa_client_secret
+    filter:
+        include_domains:
+          - climate
+          - vacuum
+        include_entities:
+          - light.front_room_light
+          - switch.christmas_tree
+          - light.hallway_lights
+          - light.back_room
+          - light.dining_light
+          - light.office_light
+          - light.kitchen_light
+          - light.bedroom_light
+          - light.landing_lights
+          - camera.doorbell_camera
+          - light.front_door
+          - light.front_room_lamp
+          - camera.back_camera
+          - camera.front_camera
+          - camera.side_camera
+          - switch.garden_side_lights
+          - cover.back_door_blind
+          - cover.back_door_window_blind
+          - cover.back_room_blinds
+          - cover.back_window_blind
+          - cover.front_room_blind
+          - cover.kitchen_blind
+          - cover.office_blind
+          - cover.spare_bedroom_blind
+          - alarm_control_panel.72_the_willows
+alexa_remote_player:
+  smart_home:
+    locale: en-GB
+    endpoint: https://api.amazonalexa.com/v3/events
+    client_id: !secret alexa_remote_player_client_id
+    client_secret: !secret alexa_remote_player_client_secret
     filter:
       include_entities:
-        media_player.sitting_room_tv
-      include_entity_globs: []
-      include_domains:
-        - cover
-        - light
-        - switch
-        - script
-        - group
-      exclude_entities: []
-    entity_config: {}
-
+        - media_player.front_room_shield
+        - media_player.back_room_shield
