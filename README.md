@@ -16,12 +16,14 @@ I use a range of WiFi lights that have esp8266 chips and use the [tuya cloud](ht
 
 #### Bulbs
 
- - [Novostella Smart Bulb B22 RGBCW 600lm](https://www.amazon.co.uk/gp/product/B07DN4NLKM) - General indoor bulb
- - [Novostella B22 LED Tunable Smart Bulb RGBCW 1300lm](https://www.amazon.co.uk/gp/product/B07SB4Q4JT) - Indoor bulb for areas that require more light
- - [Novostella E27 RGB Alexa Light Bulbs 900lm](https://www.amazon.co.uk/gp/product/B07NQMFJMJ) - Bulb for some of my lambs
- - [Novostella RGB LED Smart Spotlight 20 W 2 LED Floodlight](https://www.amazon.de/gp/product/B07VNR9XW7) - Outdoor flood light installed at the back of the house for lighting up the garden
- - [Avatar Smart LED Bulbs E14](https://www.amazon.de/dp/B07W6Z6KPG) - Bulb for some more lamps
- - [Avatar GU10 Smart Bulb](https://www.amazon.co.uk/gp/product/B082F7NWWB) - Outdoor GU10 up/down fittings at the front and side of the house
+ ~~- [Novostella Smart Bulb B22 RGBCW 600lm](https://www.amazon.co.uk/gp/product/B07DN4NLKM) - General indoor bulb~~
+ ~~- [Novostella B22 LED Tunable Smart Bulb RGBCW 1300lm](https://www.amazon.co.uk/gp/product/B07SB4Q4JT) - Indoor bulb for areas that require more light~~
+ ~~- [Novostella E27 RGB Alexa Light Bulbs 900lm](https://www.amazon.co.uk/gp/product/B07NQMFJMJ) - Bulb for some of my lamps~~
+ ~~- [Novostella RGB LED Smart Spotlight 20 W 2 LED Floodlight](https://www.amazon.de/gp/product/B07VNR9XW7) - Outdoor flood light installed at the back of the house for lighting up the garden~~
+ ~~- [Avatar Smart LED Bulbs E14](https://www.amazon.de/dp/B07W6Z6KPG) - Bulb for some more lamps~~
+ ~~- [Avatar GU10 Smart Bulb](https://www.amazon.co.uk/gp/product/B082F7NWWB) - Outdoor GU10 up/down fittings at the front and side of the house~~
+
+All the above bulbs are no longer flashable with tasmota, please look at preflashed bulbs instead, Athom provide a range of B22 and E27 bulbs https://www.aliexpress.com/item/4001281509550.html
 
 
 #### LED Strips
