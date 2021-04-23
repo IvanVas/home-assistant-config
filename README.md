@@ -33,7 +33,13 @@ All the above bulbs are no longer flashable with tasmota, please look at preflas
 #### LED Strips
 
  - [BTF-LIGHTING WS2811 5m DC12V 60leds/m](https://www.amazon.co.uk/BTF-LIGHTING-300LEDs-Addressable-Flexible-Non-waterproof/dp/B01CNL6K52) - My go to LED strip
- - [H803 WIFI LED WIFI Controller](https://www.aliexpress.com/item/32854807170.html) - controller for the WS2811 strips, its based on a ESP12 chip and runs [WLED](https://github.com/Aircoookie/WLED)
+ - ~~[H803 WIFI LED WIFI Controller](https://www.aliexpress.com/item/32854807170.html) - controller for the WS2811 strips, its based on a ESP12 chip and runs [WLED](https://github.com/Aircoookie/WLED)~~
+
+https://shop.allnetchina.cn/products/quinled-dig-uno-led-controller and https://shop.allnetchina.cn/products/quinled-dig-quad-digital-led-controller from https://quinled.info/ are more stable and more reliable
+
+Checkout https://quinled.info/2018/10/03/power-supply-selection/ for information on power supplies
+
+Check out https://quinled.info/2019/06/03/what-digital-5v-12v-rgbw-led-strip-to-buy/ for information on buying LED strips
 
 ### Networking
 
